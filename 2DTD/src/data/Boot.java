@@ -51,7 +51,7 @@ public class Boot {
 			grid.Draw();
 			wave.Update();
 			player.Update();
-			tower.Draw();
+			tower.Update();
 			
 			
 			Display.update();
