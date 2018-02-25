@@ -49,7 +49,7 @@ public class Boot {
 			
 			grid.Draw();
 			wave.Update();
-			player.SetTile();
+			player.Update();
 			
 			
 			Display.update();
