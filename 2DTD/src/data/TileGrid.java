@@ -19,10 +19,18 @@ public class TileGrid {
 		map = new Tile[20][15];
 		for (int i = 0; i < map.length; i++) {
 			for (int j = 0; j < map[i].length; j++) {
-				if (newMap[j][i] == 0) {
+				switch (newMap[j][i]) {
+				case 0:
 					map[i][j] = new Tile(i * 64, j * 64 , 64, 64, TileType.Grass);
-				} else {
+					break;
+				case 1:
 					map[i][j] = new Tile(i * 64, j * 64 , 64, 64, TileType.Dirt);
+					break;
+				case 2:
+					map[i][j] = new Tile(i * 64, j * 64 , 64, 64, TileType.Water);
+					break;
+				default:
+						break;
 				}
 			}
 		}
