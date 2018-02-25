@@ -12,8 +12,9 @@ public class Enemy {
 	private Texture texture;
 	private Tile startTile;
 	private boolean first = true;
+	private TileGrid grid;
 	
-	public Enemy(Texture texture, Tile startTile, int width, int height, float speed) {
+	public Enemy(Texture texture, Tile startTile, TileGrid grid, int width, int height, float speed) {
 		this.texture = texture;
 		this.startTile = startTile;
 		this.x = startTile.getX();
@@ -21,13 +22,28 @@ public class Enemy {
 		this.width = width;
 		this.height = height;
 		this.speed = speed;
+		this.grid = grid;
 	}
 	
 	public void Update() {
-		if (first)
+		if (first) 
 			first = false;
-		else
-			x += Delta() * speed;
+		else {
+			if (pathContinues()) 
+				x += Delta() * speed;	
+		}	
+	}
+	
+	private boolean pathContinues() {
+		boolean answer = true;
+		
+		Tile myTile = grid.getTile((int) (x / 64), (int) (y / 64));
+		Tile nextTile = grid.getTile((int) (x / 64) + 1, (int) (y / 64));
+		
+		if (myTile.getType() != nextTile.getType())
+			answer = false;
+		
+		return answer;
 	}
 	
 	public void Draw() {
@@ -104,6 +120,10 @@ public class Enemy {
 
 	public void setFirst(boolean first) {
 		this.first = first;
+	}
+	
+	public TileGrid getTileGrid() {
+		return grid;
 	}
 	
 	
