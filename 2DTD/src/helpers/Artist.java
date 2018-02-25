@@ -31,6 +31,8 @@ public class Artist {
 		glOrtho(0, WIDTH, HEIGHT, 0, 1, -1); //setting up the camera
 		glMatrixMode(GL_MODELVIEW);
 		glEnable(GL_TEXTURE_2D);
+		glEnable(GL_BLEND); //use BLEND on the Alpha channel to draw multiple textures on same tile
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); //configure alpha channel
 	}
 	
 	public static void DrawQuad(float x, float y, float width, float height) {
