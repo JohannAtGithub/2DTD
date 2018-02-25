@@ -35,24 +35,14 @@ public class Boot {
 				{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0},
 		};
 		
-		TileGrid grid = new TileGrid(map);
-		Enemy e = new Enemy(QuickLoad("UFO64"), grid.getTile(12, 10), grid, 64, 64, 6);
-		Wave wave = new Wave(30, e);
-		Player player = new Player(grid);
-		TowerCannon tower = new TowerCannon(QuickLoad("cannonBase"), grid.getTile(13, 8), 5);
+		Game game = new Game(map);
 		/*
 		 * game loop
 		 * don't end until Display is closed
 		 */
 		while(!Display.isCloseRequested()) {
 			Clock.Update();
-			
-			
-			grid.Draw();
-			wave.Update();
-			player.Update();
-			tower.Update();
-			
+			game.Update();
 			
 			Display.update();
 			Display.sync(60);
