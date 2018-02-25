@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class Enemy {
 	
-	private int  width, height, health;
+	private int  width, height, health, currentCheckpoint;
 	private float x, y, speed;
 	private Texture texture;
 	private Tile startTile;
@@ -34,6 +34,8 @@ public class Enemy {
 		this.directions[0] = 0; //x direction
 		this.directions[1] = 1; //y direction
 		directions = FindNextDirection(startTile);
+		this.currentCheckpoint = 0;
+		PopulateCheckpointList();
 	}
 	
 	public void Update() {
@@ -45,8 +47,25 @@ public class Enemy {
 		}	
 	}
 	
+	private void PopulateCheckpointList() {
+		checkpoints.add(FindNextCheckpoint(startTile, directions = FindNextDirection(startTile)));
+		
+		int counter = 0;
+		boolean cont = true;
+		while (cont) {
+			int[] currentDirection = FindNextDirection(checkpoints.get(counter).getTile());
+			if (currentDirection[0] == 2) {
+				cont = false;
+			} else {
+				checkpoints.add(FindNextCheckpoint(checkpoints.get(counter).getTile(), 
+						directions = FindNextDirection(checkpoints.get(counter).getTile())));
+			}
+			counter++;
+		}
+	}
+	
 	/*
-	 * Find the next turn of the path
+	 * Find the next turn of the path from our current position
 	 */
 	private Checkpoint FindNextCheckpoint(Tile startTile, int[] dir) {
 		Tile next = null;
@@ -100,6 +119,8 @@ public class Enemy {
 			dir[0] = -1;
 			dir[1] = 0;
 		} else {
+			dir[0] = 2;
+			dir[1] = 2;
 			System.out.println("NO DIRECTION FOUND");
 		}
 			
