@@ -102,7 +102,8 @@ public class Enemy {
 		int counter = 1;
 		
 		while (!found) {
-			if (startTile.getType() != 
+			if (startTile.getXPlace() + dir[0] * counter == grid.getTilesWide() || 
+					startTile.getYPlace() + dir[1] * counter == grid.getTilesHigh() || startTile.getType() != 
 					grid.getTile(startTile.getXPlace() + dir[0] * counter, 
 							startTile.getYPlace() + dir[1] * counter).getType()) {
 				found = true;
