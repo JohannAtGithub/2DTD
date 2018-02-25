@@ -37,7 +37,7 @@ public class Boot {
 		
 		TileGrid grid = new TileGrid(map);
 		Enemy e = new Enemy(QuickLoad("UFO64"), grid.getTile(10, 10), grid, 64, 64, 6);
-		Wave wave = new Wave(10, e);
+		Wave wave = new Wave(30, e);
 		Player player = new Player(grid);
 		/*
 		 * game loop

@@ -46,7 +46,38 @@ public class Enemy {
 	}
 	
 	/*
-	 * The method calculates which direction the enemie needs to go next
+	 * Find the next turn of the path
+	 */
+	private Checkpoint FindNextCheckpoint(Tile startTile, int[] dir) {
+		Tile next = null;
+		Checkpoint c = null;
+		
+		//Boolean to decide if next checkpoint is found
+		boolean found = false;
+		
+		//Integer to increment each loop
+		int counter = 1;
+		
+		while (!found) {
+			if (startTile.getType() != 
+					grid.getTile(startTile.getXPlace() + dir[0] * counter, 
+							startTile.getYPlace() + dir[1] * counter).getType()) {
+				found = true;
+				//Move counter back 1 to find tile before new tiletype
+				counter -= 1;
+				next  = grid.getTile(startTile.getXPlace() + dir[0] * counter, 
+							startTile.getYPlace() + dir[1] * counter);
+			}
+			
+			counter++;
+		}
+		
+		c = new Checkpoint(next, dir[0], dir[1]);
+		return c;
+	}
+	
+	/*
+	 * The method calculates which direction the enemies needs to go next
 	 * and giving back that data
 	 */
 	private int[] FindNextDirection(Tile startTile) {
