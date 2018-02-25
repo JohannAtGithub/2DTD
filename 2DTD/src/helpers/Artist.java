@@ -2,10 +2,15 @@ package helpers;
 
 import static org.lwjgl.opengl.GL11.*;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.newdawn.slick.opengl.Texture;
+import org.newdawn.slick.opengl.TextureLoader;
+import org.newdawn.slick.util.ResourceLoader;
 
 public class Artist {
 
@@ -49,7 +54,20 @@ public class Artist {
 		glVertex2f(width, height);
 		glTexCoord2f(0, 1);
 		glVertex2f(0, height);
-		glLoadIdentity();
 		glEnd();
+		glLoadIdentity();
+	}
+	
+	public static Texture LoadTexture(String path, String fileType) {
+		Texture tex = null;
+		
+		InputStream in = ResourceLoader.getResourceAsStream(path);
+		try {
+			tex = TextureLoader.getTexture(fileType, in);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return tex;
 	}
 }
