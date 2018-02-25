@@ -15,8 +15,8 @@ public class Boot {
 		
 		BeginSession();
 		
-		 Texture t = LoadTexture("res/dirt64.png", "PNG");
-		 Texture t2 = LoadTexture("res/grass64.png", "PNG");
+		 Texture t = QuickLoad("dirt64");
+		 Texture t2 = QuickLoad("grass64");
 		
 		/*
 		 * game loop

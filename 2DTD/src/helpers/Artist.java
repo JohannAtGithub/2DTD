@@ -70,4 +70,10 @@ public class Artist {
 		
 		return tex;
 	}
+	
+	public static Texture QuickLoad(String name) {
+		Texture tex = null;
+		tex = LoadTexture("res/" + name + ".png", "PNG");
+		return tex;
+	}
 }
