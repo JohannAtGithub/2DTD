@@ -39,6 +39,7 @@ public class Boot {
 		Enemy e = new Enemy(QuickLoad("UFO64"), grid.getTile(12, 10), grid, 64, 64, 6);
 		Wave wave = new Wave(30, e);
 		Player player = new Player(grid);
+		TowerCannon tower = new TowerCannon(QuickLoad("cannonBase"), grid.getTile(13, 8), 5);
 		/*
 		 * game loop
 		 * don't end until Display is closed
@@ -50,6 +51,7 @@ public class Boot {
 			grid.Draw();
 			wave.Update();
 			player.Update();
+			tower.Draw();
 			
 			
 			Display.update();
