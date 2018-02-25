@@ -24,8 +24,8 @@ public class Boot {
 		 */
 		while(!Display.isCloseRequested()) {
 			
-			DrawQuadTex(tile.getTexture(), tile.getX(), tile.getY(), tile.getWidth(), tile.getHeight());
-			DrawQuadTex(tile2.getTexture(), tile2.getX(), tile2.getY(), tile2.getWidth(), tile2.getHeight());
+			tile.Draw();
+			tile2.Draw();
 			
 			Display.update();
 			Display.sync(60);

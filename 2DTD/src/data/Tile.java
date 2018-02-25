@@ -18,6 +18,10 @@ public class Tile {
 		this.texture = QuickLoad(type.textureName);
 		this.type = type;
 	}
+	
+	public void Draw() {
+		DrawQuadTex(texture, x, y, width, height);
+	}
 
 	public float getX() {
 		return x;
