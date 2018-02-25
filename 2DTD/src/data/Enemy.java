@@ -5,6 +5,8 @@ import org.newdawn.slick.opengl.Texture;
 import static helpers.Artist.*;
 import static helpers.Clock.*;
 
+import java.util.ArrayList;
+
 public class Enemy {
 	
 	private int  width, height, health;
@@ -13,6 +15,9 @@ public class Enemy {
 	private Tile startTile;
 	private boolean first = true;
 	private TileGrid grid;
+	
+	private ArrayList<Checkpoint> checkpoints;
+	private int[] directions;
 	
 	public Enemy(Texture texture, Tile startTile, TileGrid grid, int width, int height, float speed) {
 		this.texture = texture;
@@ -23,28 +28,57 @@ public class Enemy {
 		this.height = height;
 		this.speed = speed;
 		this.grid = grid;
+		
+		this.checkpoints = new ArrayList<Checkpoint>();
+		this.directions = new int[2];
+		this.directions[0] = 0; //x direction
+		this.directions[1] = 1; //y direction
+		directions = FindNextDirection(startTile);
 	}
 	
 	public void Update() {
 		if (first) 
 			first = false;
 		else {
-			if (pathContinues()) 
-				x += Delta() * speed;	
+			x += Delta() * directions[0];
+			y += Delta() * directions[1];
 		}	
 	}
 	
-	private boolean pathContinues() {
-		boolean answer = true;
+	/*
+	 * The method calculates which direction the enemie needs to go next
+	 * and giving back that data
+	 */
+	private int[] FindNextDirection(Tile startTile) {
+		int[] dir = new int[2];
+		Tile up = grid.getTile(startTile.getXPlace(), startTile.getYPlace() - 1);
+		Tile right = grid.getTile(startTile.getXPlace() + 1, startTile.getYPlace());
+		Tile down = grid.getTile(startTile.getXPlace(), startTile.getYPlace() + 1);
+		Tile left = grid.getTile(startTile.getXPlace() - 1, startTile.getYPlace());
 		
-		Tile myTile = grid.getTile((int) (x / 64), (int) (y / 64));
-		Tile nextTile = grid.getTile((int) (x / 64) + 1, (int) (y / 64));
+		if (startTile.getType() == up.getType()) {
+			dir[0] = 0;
+			dir[1] = -1;
+		} else if (startTile.getType() == right.getType()) {
+			dir[0] = 1;
+			dir[1] = 0;
+		} else if (startTile.getType() == down.getType()) {
+			dir[0] = 0;
+			dir[1] = 1;
+		} else if (startTile.getType() == left.getType()) {
+			dir[0] = -1;
+			dir[1] = 0;
+		} else {
+			System.out.println("NO DIRECTION FOUND");
+		}
+			
 		
-		if (myTile.getType() != nextTile.getType())
-			answer = false;
 		
-		return answer;
+		
+		return dir;
 	}
+	
+	
 	
 	public void Draw() {
 		DrawQuadTex(texture, x, y, width, height);
