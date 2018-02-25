@@ -39,4 +39,19 @@ public class Clock {
 		d = getDelta();
 		totalTime += d;
 	}
+	
+	public static void ChangeMultiplier(int change) {
+		if (multiplier + change < -1 && multiplier + change > 7) {
+			
+		} else {
+			multiplier += change;
+		}
+	}
+	
+	public static void Pause() {
+		if (paused)
+			paused = false;
+		else
+			paused = true;
+	}
 }

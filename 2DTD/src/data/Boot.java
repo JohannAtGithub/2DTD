@@ -5,6 +5,8 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.newdawn.slick.opengl.Texture;
 
+import helpers.Clock;
+
 import static org.lwjgl.opengl.GL11.*;
 
 import static helpers.Artist.*;
@@ -34,12 +36,14 @@ public class Boot {
 		};
 		
 		TileGrid grid = new TileGrid(map);
-		Enemy e = new Enemy(QuickLoad("UFO64"), grid.getTile(10, 10), 64, 64, 2);
+		Enemy e = new Enemy(QuickLoad("UFO64"), grid.getTile(10, 10), 64, 64, 6);
 		/*
 		 * game loop
 		 * don't end until Display is closed
 		 */
 		while(!Display.isCloseRequested()) {
+			Clock.Update();
+			e.Update();
 			
 			grid.Draw();
 			e.Draw();
