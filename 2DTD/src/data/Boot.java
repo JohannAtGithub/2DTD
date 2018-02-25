@@ -34,6 +34,7 @@ public class Boot {
 		};
 		
 		TileGrid grid = new TileGrid(map);
+		Enemy e = new Enemy(QuickLoad("UFO64"), grid.getTile(10, 10), 64, 64, 2);
 		/*
 		 * game loop
 		 * don't end until Display is closed
@@ -41,6 +42,7 @@ public class Boot {
 		while(!Display.isCloseRequested()) {
 			
 			grid.Draw();
+			e.Draw();
 			
 			Display.update();
 			Display.sync(60);
