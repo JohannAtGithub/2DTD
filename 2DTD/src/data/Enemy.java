@@ -42,9 +42,27 @@ public class Enemy {
 		if (first) 
 			first = false;
 		else {
-			x += Delta() * directions[0];
-			y += Delta() * directions[1];
+			if (CheckpointReached()) {
+				currentCheckpoint++;
+			} else {
+				x += Delta() * checkpoints.get(currentCheckpoint).getxDirection() * speed;
+				y += Delta() * checkpoints.get(currentCheckpoint).getyDirection() * speed;
+			}
 		}	
+	}
+	
+	private boolean CheckpointReached() {
+		boolean reached = false;
+		Tile t = checkpoints.get(currentCheckpoint).getTile();
+		//Check if position reached tile within variance of 3
+		if (x > t.getX() - 3 &&  x < t.getX() + 3 && y > t.getY() -3 && y < t.getY() + 3) {
+			reached = true;
+			x = t.getX();
+			y = t.getY();
+		}
+		
+		
+		return reached;
 	}
 	
 	private void PopulateCheckpointList() {
@@ -54,7 +72,8 @@ public class Enemy {
 		boolean cont = true;
 		while (cont) {
 			int[] currentDirection = FindNextDirection(checkpoints.get(counter).getTile());
-			if (currentDirection[0] == 2) {
+			//Check if a next direction/checkpoint exists, end after 20 checkpoints
+			if (currentDirection[0] == 2 || counter == 20) {
 				cont = false;
 			} else {
 				checkpoints.add(FindNextCheckpoint(checkpoints.get(counter).getTile(), 
