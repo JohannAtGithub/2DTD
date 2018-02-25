@@ -38,6 +38,7 @@ public class Boot {
 		TileGrid grid = new TileGrid(map);
 		Enemy e = new Enemy(QuickLoad("UFO64"), grid.getTile(10, 10), 64, 64, 6);
 		Wave wave = new Wave(10, e);
+		Player player = new Player(grid);
 		/*
 		 * game loop
 		 * don't end until Display is closed
@@ -48,6 +49,8 @@ public class Boot {
 			
 			grid.Draw();
 			wave.Update();
+			player.SetTile();
+			
 			
 			Display.update();
 			Display.sync(60);
