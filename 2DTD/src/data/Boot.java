@@ -16,16 +16,14 @@ public class Boot {
 		BeginSession();
 		
 		
-		Tile tile = new Tile(0, 0, 64, 64, TileType.Grass);
-		Tile tile2 = new Tile(64, 0, 64, 64, TileType.Dirt);
+		TileGrid grid = new TileGrid();
 		/*
 		 * game loop
 		 * don't end until Display is closed
 		 */
 		while(!Display.isCloseRequested()) {
 			
-			tile.Draw();
-			tile2.Draw();
+			grid.Draw();
 			
 			Display.update();
 			Display.sync(60);
